@@ -11,7 +11,7 @@ package p1_ej2;
  */
 public class DireccionCorreo {
 
-    private final String DEFAULT_SERVER = "esei.uvigo.es";
+    private static final String DEFAULT_SERVER = "esei.uvigo.es";
     private String nombre;
     private String apellido;
     private String usuario;
@@ -27,7 +27,8 @@ public class DireccionCorreo {
     public DireccionCorreo(String nombre, String apellido) {
         this.nombre = nombre;
         this.apellido = apellido;
-        this.usuario = apellido + nombre.substring(0, 1);
+        //this.usuario = apellido + nombre.substring(0, 1);
+        this.usuario = apellido + nombre.charAt(0);
         this.servidor = DEFAULT_SERVER;
     }
 
