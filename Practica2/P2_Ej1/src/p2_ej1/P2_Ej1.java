@@ -5,6 +5,8 @@
  */
 package p2_ej1;
 
+import java.util.Scanner;
+
 /**
  *
  * Los coches se definen por su marca (marca), modelo (modelo), número de
@@ -23,8 +25,10 @@ public class P2_Ej1 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Coche coche = new Coche("Volkswagen", "Escarabajo", 4, 100, "compacto", 61);
+
+        Coche coche = new Coche("Volkswagen", "Escarabajo", 4, 100, Coche.Tipo.BERLINA, 61);
         System.out.println(coche.toString());
+
     }
 
 }

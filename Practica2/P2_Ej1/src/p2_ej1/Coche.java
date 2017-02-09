@@ -15,10 +15,14 @@ class Coche {
     private String modelo;
     private int numPuertas;
     private int capacidad;
-    private String tipo;
     private int cv;
+    private Tipo tipo;
 
-    public Coche(String marca, String modelo, int numPuertas, int capacidad, String tipo, int cv) {
+    public static enum Tipo {
+        MONOVOLUMEN, FAMILIAR, COMPACTO, BERLINA, CAMIONETA
+    };
+
+    public Coche(String marca, String modelo, int numPuertas, int capacidad, Tipo tipo, int cv) {
         this.marca = marca;
         this.modelo = modelo;
         this.numPuertas = numPuertas;
@@ -58,12 +62,12 @@ class Coche {
     public void setCapacidad(int capacidad) {
         this.capacidad = capacidad;
     }
-
-    public String getTipo() {
+ 
+    public Tipo getTipo() {
         return tipo;
     }
 
-    public void setTipo(String tipo) {
+    public void setTipo(Tipo tipo) {
         this.tipo = tipo;
     }
 
@@ -77,7 +81,6 @@ class Coche {
 
     @Override
     public String toString() {
-        //Se expresan como "marca modelo (tipo, cv CV)): puertas: numPuertas, capacidad: capacidad".
         return marca + " " + modelo + " (" + tipo + ", cv " + cv + ") puertas: " + numPuertas + ", capacidad: " + capacidad;
     }
 
