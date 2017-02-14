@@ -43,7 +43,7 @@ public class P3_Ej2 {
             System.out.print("\nIntroduzca divisor: ");
             linea = scan.nextLine();
             num2 = Integer.parseInt(linea);
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             System.err.println("Numero introducido incorrecto");
         }
 
