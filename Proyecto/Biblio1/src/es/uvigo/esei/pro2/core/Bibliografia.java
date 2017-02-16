@@ -104,12 +104,12 @@ public class Bibliografia {
     }
 
     public String toString(Bibliografia coleccion) {
-        String cadena = "";
+        StringBuilder toprint = new StringBuilder("");
         for (int i = 0; i < numReferencias; i++) {
 
-            cadena = cadena + coleccion.get(i).toString();
+            toprint.append(coleccion.get(i).toString());
         }
-        return cadena;
+        return toprint.toString();
     }
 
 }
