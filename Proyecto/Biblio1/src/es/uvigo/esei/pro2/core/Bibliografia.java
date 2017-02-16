@@ -73,40 +73,46 @@ public class Bibliografia {
     }
 
     public void elimina(int pos) {
-        int cont = 0;
-        int a = 0;
-        for (int i = 0; i < referencias.length; i++) {
-
-            if (pos == i) {
-                for (int j = pos; j < referencias.length; j++) {
-                    if (j != referencias.length - 1) {
-                        if (referencias[j + 1] == null && cont == 0) {
-                            referencias[j].setAno(0);
-                            referencias[j].setAutores("");
-                            referencias[j].setTipo("");
-                            referencias[j].setTitulo("");
-                            cont++;
-                        } else {
-                            if (cont == 0) {
-                                referencias[j].setAno(referencias[j + 1].getAno());
-                                referencias[j].setAutores(referencias[j + 1].getAutores());
-                                referencias[j].setTipo(referencias[j + 1].getTipo());
-                                referencias[j].setTitulo(referencias[j + 1].getTitulo());
-                            }
-
-                        }
-                    }
-
-                }
-            }
+        for (int i = pos; i < referencias.length-1; i++) {
+            this.referencias[i] = this.referencias[i+1];
         }
-        System.out.println("a");
+        this.referencias[referencias.length-1] = new Referencia("", "", 0);
+//        
+//        
+//        
+//        int cont = 0;
+//        for (int i = 0; i < referencias.length; i++) {
+//
+//            if (pos == i) {
+//                for (int j = pos; j < referencias.length; j++) {
+//                    if (j != referencias.length - 1) {
+//                        if (referencias[j + 1] == null && cont == 0) {
+//                            referencias[j].setAno(0);
+//                            referencias[j].setAutores("");
+//                            referencias[j].setTipo("");
+//                            referencias[j].setTitulo("");
+//                            cont++;
+//                        } else {
+//                            if (cont == 0) {
+//                                referencias[j].setAno(referencias[j + 1].getAno());
+//                                referencias[j].setAutores(referencias[j + 1].getAutores());
+//                                referencias[j].setTipo(referencias[j + 1].getTipo());
+//                                referencias[j].setTitulo(referencias[j + 1].getTitulo());
+//                            }
+//
+//                        }
+//                    }
+//
+//                }
+//            }
+//        }
+//        System.out.println("a");
     }
 
     public String toString(Bibliografia coleccion) {
         StringBuilder toprint = new StringBuilder("");
         for (int i = 0; i < numReferencias; i++) {
-
+            System.out.println(i);
             toprint.append(coleccion.get(i).toString());
         }
         return toprint.toString();

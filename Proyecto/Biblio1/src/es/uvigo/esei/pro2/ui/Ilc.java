@@ -16,6 +16,7 @@ public class Ilc {
     public void ler() {
         int op;
 
+        
         // Lee el num. max. de referencias
         int maxReferencias = leeNum("Num. max. referencias: ");
 
@@ -33,7 +34,21 @@ public class Ilc {
                     System.out.println("Fin.");
                     break;
                 case 1:
-                    insertaReferencia(coleccion);
+                
+                    coleccion.inserta(new Referencia("a", "a", 1));
+                    coleccion.inserta(new Referencia("b", "a", 1));
+                    coleccion.inserta(new Referencia("c", "a", 1));
+                    coleccion.inserta(new Referencia("d", "a", 1));
+                    coleccion.inserta(new Referencia("e", "a", 1));
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    //                    insertaReferencia(coleccion);
                     break;
                 case 2:
                     modificaReferencia(coleccion);
@@ -45,8 +60,7 @@ public class Ilc {
                     visualiza(coleccion);
                     break;
                 default:
-                    System.out.println("No es correcta esa opción ( "
-                            + op + " )");
+                    System.out.println("No es correcta esa opción ( " + op + " )");
             }
         } while (op != 0);
 
