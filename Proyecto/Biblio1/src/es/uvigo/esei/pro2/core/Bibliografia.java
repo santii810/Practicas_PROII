@@ -73,10 +73,9 @@ public class Bibliografia {
     }
 
     public void elimina(int pos) {
-        for (int i = pos; i < referencias.length-1; i++) {
-            this.referencias[i] = this.referencias[i+1];
-        }
-        this.referencias[referencias.length-1] = new Referencia("", "", 0);
+        this.referencias[pos] = this.referencias[numReferencias-1];
+        this.numReferencias--;
+        
 //        
 //        
 //        
@@ -112,7 +111,6 @@ public class Bibliografia {
     public String toString(Bibliografia coleccion) {
         StringBuilder toprint = new StringBuilder("");
         for (int i = 0; i < numReferencias; i++) {
-            System.out.println(i);
             toprint.append(coleccion.get(i).toString());
         }
         return toprint.toString();

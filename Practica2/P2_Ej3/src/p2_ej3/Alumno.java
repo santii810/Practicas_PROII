@@ -11,7 +11,6 @@ package p2_ej3;
  */
 public class Alumno {
 
-    private static final String[] notas = {"Suspenso", "Aprobado", "Notable", "Sobresaliente"};
     private int dni;
     private String apellidos;
     private String nombre;
@@ -20,6 +19,7 @@ public class Alumno {
     private double notaBloque3;
     private double notaPracticas;
     private double notaFinal;
+    public enum Nota {SUSPENSO, APROBADO, NOTABLE, SOBRESALIENTE}; 
 
     public Alumno(int dni, String apellidos, String nombre) {
         this.dni = dni;
@@ -103,13 +103,13 @@ public class Alumno {
     public String printNota(double nota) {
         String toret;
         if (nota >= 9) {
-            toret = notas[3] + " (" + nota + ")";
+            toret = Nota.SOBRESALIENTE + " (" + nota + ")";
         } else if (nota >= 7) {
-            toret = notas[2] + " (" + nota + ")";
+            toret = Nota.NOTABLE + " (" + nota + ")";
         } else if (nota >= 5) {
-            toret = notas[1] + " (" + nota + ")";
+            toret = Nota.APROBADO + " (" + nota + ")";
         } else {
-            toret = notas[0] + " (" + nota + ")";
+            toret = Nota.SUSPENSO + " (" + nota + ")";
         }
         return toret;
     }
@@ -121,5 +121,4 @@ public class Alumno {
                 + nombre + ": "
                 + printNota(notaBloque1) + ", " + printNota(notaBloque2) + ", " + printNota(notaBloque3) + ", " + printNota(notaPracticas) + " = " + printNota(notaFinal);
     }
-
 }
