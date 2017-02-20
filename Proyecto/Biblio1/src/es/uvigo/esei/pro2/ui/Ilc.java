@@ -16,7 +16,6 @@ public class Ilc {
     public void ler() {
         int op;
 
-        
         // Lee el num. max. de referencias
         int maxReferencias = leeNum("Num. max. referencias: ");
 
@@ -34,21 +33,14 @@ public class Ilc {
                     System.out.println("Fin.");
                     break;
                 case 1:
-                
-                    coleccion.inserta(new Referencia("a", "a", 1));
-                    coleccion.inserta(new Referencia("b", "a", 1));
-                    coleccion.inserta(new Referencia("c", "a", 1));
-                    coleccion.inserta(new Referencia("d", "a", 1));
-                    coleccion.inserta(new Referencia("e", "a", 1));
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    //                    insertaReferencia(coleccion);
+//                    ejemplos:
+//                    coleccion.inserta(new Referencia("a", "a", 1));
+//                    coleccion.inserta(new Referencia("b", "a", 1));
+//                    coleccion.inserta(new Referencia("c", "a", 1));
+//                    coleccion.inserta(new Referencia("d", "a", 1));
+//                    coleccion.inserta(new Referencia("e", "a", 1));
+
+                    insertaReferencia(coleccion);
                     break;
                 case 2:
                     modificaReferencia(coleccion);
@@ -85,6 +77,8 @@ public class Ilc {
                 toret = Integer.parseInt(teclado.nextLine());
             } catch (NumberFormatException exc) {
                 repite = true;
+            } catch (Exception ex){
+                repite = true;
             }
         } while (repite);
 
@@ -109,8 +103,13 @@ public class Ilc {
         toPrint.append("4. Listar referencias\n");
         toPrint.append("0. Salir\n");
         do {
+            try {
+                
             System.out.println(toPrint);
             toret = leeNum("Selecciona: ");
+            } catch (Exception e) {
+                toret = -1;
+            }
         } while (toret < 0
                 && toret > 4);
 
