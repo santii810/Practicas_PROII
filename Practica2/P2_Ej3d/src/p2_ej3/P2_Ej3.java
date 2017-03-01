@@ -39,7 +39,8 @@ public class P2_Ej3 {
         alu.setNotaBloque3(7);
         alu.setNotaPracticas(9);
         alu.setNotaFinal();
-        
+        System.out.println(alu.toString());
+
         System.out.println("\n\n Segunda parte:");
         Curso curso = new Curso(new Alumno[]{alu, alu, alu});
         System.out.println(   curso.toString());
