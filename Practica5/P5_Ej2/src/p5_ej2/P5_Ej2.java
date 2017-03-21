@@ -15,7 +15,21 @@ public class P5_Ej2 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-    }
+ System.out.println("Sistema financiero");
+
+        CuentaComisionReintegro c = new CuentaComisionReintegro(Cuenta.Tipo.AHORRO, 100, .05);
+        System.out.println(c);
+
+        c.ingresa(50);
+        c.ingresa(120);
+        c.aplicaInteres();
+        System.out.println(c);
+
+        Prestamo p = new Prestamo(12, 10000, .10);
+        System.out.println(p);
+
+        p.amortiza();
+        p.amortiza();
+        System.out.println(p);    }
     
 }
