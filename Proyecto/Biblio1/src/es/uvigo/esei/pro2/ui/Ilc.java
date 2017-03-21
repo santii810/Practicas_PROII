@@ -77,7 +77,7 @@ public class Ilc {
                 toret = Integer.parseInt(teclado.nextLine());
             } catch (NumberFormatException exc) {
                 repite = true;
-            } catch (Exception ex){
+            } catch (Exception ex) {
                 repite = true;
             }
         } while (repite);
@@ -104,9 +104,9 @@ public class Ilc {
         toPrint.append("0. Salir\n");
         do {
             try {
-                
-            System.out.println(toPrint);
-            toret = leeNum("Selecciona: ");
+
+                System.out.println(toPrint);
+                toret = leeNum("Selecciona: ");
             } catch (Exception e) {
                 toret = -1;
             }
@@ -127,8 +127,13 @@ public class Ilc {
         toPrint.append("0. Salir\n");
 
         do {
-            System.out.println(toPrint.toString());
-            toret = leeNum("Selecciona: ");
+            try {
+
+                System.out.println(toPrint.toString());
+                toret = leeNum("Selecciona: ");
+            } catch (Exception e) {
+                toret = -1;
+            }
         } while (toret < 0
                 && toret > 4);
 
@@ -155,7 +160,12 @@ public class Ilc {
      */
     private void eliminaReferencia(Bibliografia coleccion) {
         if (coleccion.getNumReferencias() > 0) {
-            coleccion.elimina(leeNumReferencia(coleccion));
+            try {
+
+                coleccion.elimina(leeNumReferencia(coleccion));
+            } catch (Exception e) {
+                System.err.println("Numero de referencia incorrecto");
+            }
         } else {
             System.out.println("La coleccion no contiene referencias.");
         }
@@ -177,6 +187,7 @@ public class Ilc {
     private void modificaReferencia(Referencia r) {
         String info;
         char tipoReferencia;
+        boolean repetir = false;
         Scanner teclado = new Scanner(System.in);
 
         // Autores
@@ -185,11 +196,20 @@ public class Ilc {
             System.out.print("[" + r.getAutores() + "]");
         }
         System.out.print(": ");
-        info = teclado.nextLine().trim();
+        do {
+            try {
+                repetir = false;
+                info = teclado.nextLine().trim();
 
-        if (info.length() > 0) {
-            r.setAutores(info);
-        }
+                if (info.length() > 0) {
+                    r.setAutores(info);
+                } else {
+                    throw new Exception();
+                }
+            } catch (Exception e) {
+                repetir = true;
+            }
+        } while (repetir);
 
         // Titulo
         System.out.print("Titulo de la referencia ");
@@ -245,9 +265,13 @@ public class Ilc {
     private int leeNumReferencia(Bibliografia coleccion) {
         final int numReferencias = coleccion.getNumReferencias();
         int toret;
-
         do {
-            toret = leeNum("Introduzca num. de referencia (1..." + numReferencias + "): ");
+            try {
+                toret = leeNum("Introduzca num. de referencia (1..." + numReferencias + "): ");
+            } catch (Exception e) {
+                //forzamos a que repita el while
+                toret = 0;
+            }
         } while (toret < 1
                 || toret > numReferencias);
 
@@ -262,9 +286,19 @@ public class Ilc {
      */
     private char leeCaracter(String men) {
         Scanner teclado = new Scanner(System.in);
+        char toret = ' ';
+        boolean repetir;
+        do {
+            try {
+                repetir = false;
+                System.out.print(men);
+                toret = teclado.nextLine().trim().charAt(0);
+            } catch (Exception e) {
+                repetir = true;
+            }
+        } while (repetir);
 
-        System.out.print(men);
-        return (teclado.nextLine().trim().charAt(0));
+        return (toret);
     }
 
     /**
