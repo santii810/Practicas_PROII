@@ -11,20 +11,23 @@ package p2_ej3;
  */
 public class Alumno {
 
+    private final static int numNotas = 4;
+    private final static double[] valoracion = new double[]{0.15, 0.15, 0.15, 0.55};
     private int dni;
     private String apellidos;
     private String nombre;
-    private double notaBloque1;
-    private double notaBloque2;
-    private double notaBloque3;
-    private double notaPracticas;
     private double notaFinal;
-    public enum Nota {SUSPENSO, APROBADO, NOTABLE, SOBRESALIENTE}; 
+    private double[] notas;
+
+    public enum Nota {
+        SUSPENSO, APROBADO, NOTABLE, SOBRESALIENTE
+    };
 
     public Alumno(int dni, String apellidos, String nombre) {
         this.dni = dni;
         this.apellidos = apellidos;
         this.nombre = nombre;
+        this.notas = new double[numNotas];
     }
 
     public int getDni() {
@@ -51,53 +54,18 @@ public class Alumno {
         this.nombre = nombre;
     }
 
-    public double getNotaBloque1() {
-        return notaBloque1;
+    public double[] getNotas() {
+        return notas;
     }
 
-    public void setNotaBloque1(double notaBloque1) {
-        this.notaBloque1 = notaBloque1;
+    public void setNotas(double[] notas) {
+        this.notas = notas;
     }
-
-    public double getNotaBloque2() {
-        return notaBloque2;
-    }
-
-    public void setNotaBloque2(double notaBloque2) {
-        this.notaBloque2 = notaBloque2;
-    }
-
-    public double getNotaBloque3() {
-        return notaBloque3;
-    }
-
-    public void setNotaBloque3(double notaBloque3) {
-        this.notaBloque3 = notaBloque3;
-    }
-
-    public double getNotaPracticas() {
-        return notaPracticas;
-    }
-
-    public void setNotaPracticas(double notaPracticas) {
-        this.notaPracticas = notaPracticas;
-    }
-
-    public double getNotaFinal() {
-        return notaFinal;
-    }
-
-    public void setNotaFinal(double notaFinal) {
-        this.notaFinal = notaFinal;
-    }
-
- 
 
     public void setNotaFinal() {
-        notaFinal += notaBloque1 * 0.15;
-        notaFinal += notaBloque2 * 0.15;
-        notaFinal += notaBloque3 * 0.15;
-        notaFinal += notaPracticas * 0.55;
+        for (int i = 0; i < numNotas; i++) {
+            notaFinal += notas[i] * valoracion[i];
+        }
     }
 
     public String printNota(double nota) {
@@ -116,9 +84,18 @@ public class Alumno {
 
     @Override
     public String toString() {
-        return dni + " - "
-                + apellidos + ", "
-                + nombre + ": "
-                + printNota(notaBloque1) + ", " + printNota(notaBloque2) + ", " + printNota(notaBloque3) + ", " + printNota(notaPracticas) + " = " + printNota(notaFinal);
+        
+        StringBuilder toret = new StringBuilder();
+        toret.append(dni);
+        toret.append(" - ");
+        toret.append(apellidos);
+        toret.append(", ");
+        toret.append(nombre);
+        toret.append(": ");
+        for (int i = 0; i < numNotas; i++) {
+            toret.append(printNota(notas[i]));
+            toret.append(", ");
+        }
+        return toret.toString();
     }
 }

@@ -34,10 +34,7 @@ public class P2_Ej3 {
      */
     public static void main(String[] args) {
         Alumno alu = new Alumno(0, "a", "b");
-        alu.setNotaBloque1(2);
-        alu.setNotaBloque2(5);
-        alu.setNotaBloque3(7);
-        alu.setNotaPracticas(9);
+        alu.setNotas(new double[]{2,5,7,9});
         alu.setNotaFinal();
         
         System.out.println("\n\n Segunda parte:");
