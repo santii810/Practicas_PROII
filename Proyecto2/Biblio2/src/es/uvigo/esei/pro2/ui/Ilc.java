@@ -207,131 +207,127 @@ public class Ilc {
 
         // Tipos de referencia
         if (r instanceof Libro) {
-
-// Editorial
-            System.out.print("Editorial del libro ");
-            if (((Libro) r).getEditorial().length() > 0) {
-                System.out.print("[" + ((Libro) r).getEditorial() + "]");
-            }
-            System.out.print(": ");
-            info = teclado.nextLine().trim();
-
-            if (info.length() > 0) {
-                ((Libro) r).setEditorial(info);
-            }
-
-            // Editorial
-            System.out.print("Isbn del libro ");
-            if (((Libro) r).getIsbn().length() > 0) {
-                System.out.print("[" + ((Libro) r).getIsbn() + "]");
-            }
-            System.out.print(": ");
-            info = teclado.nextLine().trim();
-
-            if (info.length() > 0) {
-                ((Libro) r).setIsbn(info);
-            }
-
-            //Formato
-            do {
-                formato = leeCaracter("Introduce el tipo de referencia (P: papel, E: ebook): ");
-            } while ((formato != 'L') && (formato != 'A') && (formato != 'D'));
-
-            switch (formato) {
-                case 'P':
-                    ((Libro) r).setFormato(TipoFormato.PAPEL);
-                    break;
-                case 'E':
-                    ((Libro) r).setFormato(TipoFormato.EBOOK);
-                    break;
-            }
+            modificarLibro(r);
         } else if (r instanceof ArticuloRevista) {
-            // TipoRevista
-            System.out.print("Tipo de revista ");
-            if (((ArticuloRevista) r).getTipoRevista().length() > 0) {
-                System.out.print("[" + ((ArticuloRevista) r).getTipoRevista() + "]");
-            }
-            System.out.print(": ");
-            info = teclado.nextLine().trim();
-
-            if (info.length() > 0) {
-                ((ArticuloRevista) r).setTipoRevista(info);
-            }
-
-            // doi
-            System.out.print("Doi de la revista ");
-            if (((ArticuloRevista) r).getDoi().length() > 0) {
-                System.out.print("[" + ((ArticuloRevista) r).getDoi() + "]");
-            }
-            System.out.print(": ");
-            info = teclado.nextLine().trim();
-
-            if (info.length() > 0) {
-                ((ArticuloRevista) r).setDoi(info);
-            }
-
-            // Volumen
-            System.out.print("Volumen de la revista ");
-            if (((ArticuloRevista) r).getVolumen() > 0) {
-                System.out.print("[" + ((ArticuloRevista) r).getVolumen() + "]");
-            }
-            System.out.print(": ");
-            info = teclado.nextLine().trim();
-
-            if (info.length() > 0) {
-                ((ArticuloRevista) r).setVolumen(Integer.parseInt(info));
-            }
-
-            // Numero
-            System.out.print("Numero de la revista ");
-            if (((ArticuloRevista) r).getNumero() > 0) {
-                System.out.print("[" + ((ArticuloRevista) r).getNumero() + "]");
-            }
-            System.out.print(": ");
-            info = teclado.nextLine().trim();
-
-            if (info.length() > 0) {
-                ((ArticuloRevista) r).setNumero(Integer.parseInt(info));
-            }
-
-            // PaginaInicio
-            System.out.print("Pagina de inicio de la revista ");
-            if (((ArticuloRevista) r).getPaginaInicio() > 0) {
-                System.out.print("[" + ((ArticuloRevista) r).getPaginaInicio() + "]");
-            }
-            System.out.print(": ");
-            info = teclado.nextLine().trim();
-
-            if (info.length() > 0) {
-                ((ArticuloRevista) r).setPaginaInicio(Integer.parseInt(info));
-            }
-
-            // PaginaFin
-            System.out.print("Pagina de fin de la revista ");
-            if (((ArticuloRevista) r).getPaginaFin() > 0) {
-                System.out.print("[" + ((ArticuloRevista) r).getPaginaFin() + "]");
-            }
-            System.out.print(": ");
-            info = teclado.nextLine().trim();
-
-            if (info.length() > 0) {
-                ((ArticuloRevista) r).setPaginaFin(Integer.parseInt(info));
-            }
+            modificarArticulo(r);
         } else if (r instanceof DocumentoWeb) {
+            modificarDocumentoWeb(r);
+        }
+    }
 
-            // Url
-            System.out.print("Url de la web ");
-            if (((DocumentoWeb) r).getUrl().length() > 0) {
-                System.out.print("[" + ((DocumentoWeb) r).getUrl() + "]");
-            }
-            System.out.print(": ");
-            info = teclado.nextLine().trim();
+    private void modificarDocumentoWeb(Referencia r) {
+        String info;
+        // Url
+        System.out.print("Url de la web ");
+        if (((DocumentoWeb) r).getUrl().length() > 0) {
+            System.out.print("[" + ((DocumentoWeb) r).getUrl() + "]");
+        }
+        System.out.print(": ");
+        info = teclado.nextLine().trim();
+        if (info.length() > 0) {
+            ((DocumentoWeb) r).setUrl(info);
+        }
+        ((DocumentoWeb) r).setFechaConsulta(new Fecha(new Date().getDay(), new Date().getMonth(), new Date().getYear()));
+    }
 
-            if (info.length() > 0) {
-                ((DocumentoWeb) r).setUrl(info);
-            }
+    private void modificarArticulo(Referencia r) throws NumberFormatException {
+        String info;
+        // TipoRevista
+        System.out.print("Tipo de revista ");
+        if (((ArticuloRevista) r).getTipoRevista().length() > 0) {
+            System.out.print("[" + ((ArticuloRevista) r).getTipoRevista() + "]");
+        }
+        System.out.print(": ");
+        info = teclado.nextLine().trim();
+        if (info.length() > 0) {
+            ((ArticuloRevista) r).setTipoRevista(info);
+        }
+        // doi
+        System.out.print("Doi de la revista ");
+        if (((ArticuloRevista) r).getDoi().length() > 0) {
+            System.out.print("[" + ((ArticuloRevista) r).getDoi() + "]");
+        }
+        System.out.print(": ");
+        info = teclado.nextLine().trim();
+        if (info.length() > 0) {
+            ((ArticuloRevista) r).setDoi(info);
+        }
+        // Volumen
+        System.out.print("Volumen de la revista ");
+        if (((ArticuloRevista) r).getVolumen() > 0) {
+            System.out.print("[" + ((ArticuloRevista) r).getVolumen() + "]");
+        }
+        System.out.print(": ");
+        info = teclado.nextLine().trim();
+        if (info.length() > 0) {
+            ((ArticuloRevista) r).setVolumen(Integer.parseInt(info));
+        }
+        // Numero
+        System.out.print("Numero de la revista ");
+        if (((ArticuloRevista) r).getNumero() > 0) {
+            System.out.print("[" + ((ArticuloRevista) r).getNumero() + "]");
+        }
+        System.out.print(": ");
+        info = teclado.nextLine().trim();
+        if (info.length() > 0) {
+            ((ArticuloRevista) r).setNumero(Integer.parseInt(info));
+        }
+        // PaginaInicio
+        System.out.print("Pagina de inicio de la revista ");
+        if (((ArticuloRevista) r).getPaginaInicio() > 0) {
+            System.out.print("[" + ((ArticuloRevista) r).getPaginaInicio() + "]");
+        }
+        System.out.print(": ");
+        info = teclado.nextLine().trim();
+        if (info.length() > 0) {
+            ((ArticuloRevista) r).setPaginaInicio(Integer.parseInt(info));
+        }
+        // PaginaFin
+        System.out.print("Pagina de fin de la revista ");
+        if (((ArticuloRevista) r).getPaginaFin() > 0) {
+            System.out.print("[" + ((ArticuloRevista) r).getPaginaFin() + "]");
+        }
+        System.out.print(": ");
+        info = teclado.nextLine().trim();
+        if (info.length() > 0) {
+            ((ArticuloRevista) r).setPaginaFin(Integer.parseInt(info));
+        }
+    }
 
-            ((DocumentoWeb) r).setFechaConsulta(new Fecha(new Date().getDay(), new Date().getMonth(), new Date().getYear()));
+    private void modificarLibro(Referencia r) {
+        String info;
+        char formato;
+        // Editorial
+        System.out.print("Editorial del libro ");
+        if (((Libro) r).getEditorial().length() > 0) {
+            System.out.print("[" + ((Libro) r).getEditorial() + "]");
+        }
+        System.out.print(": ");
+        info = teclado.nextLine().trim();
+        if (info.length() > 0) {
+            ((Libro) r).setEditorial(info);
+        }
+        // Editorial
+        System.out.print("Isbn del libro ");
+        if (((Libro) r).getIsbn().length() > 0) {
+            System.out.print("[" + ((Libro) r).getIsbn() + "]");
+        }
+        System.out.print(": ");
+        info = teclado.nextLine().trim();
+        if (info.length() > 0) {
+            ((Libro) r).setIsbn(info);
+        }
+        //Formato
+        do {
+            formato = leeCaracter("Introduce el tipo de referencia (P: papel, E: ebook): ");
+        } while ((formato != 'L') && (formato != 'A') && (formato != 'D'));
+        switch (formato) {
+            case 'P':
+                ((Libro) r).setFormato(TipoFormato.PAPEL);
+                break;
+            case 'E':
+                ((Libro) r).setFormato(TipoFormato.EBOOK);
+                break;
         }
     }
 

@@ -54,7 +54,4 @@ public class Libro extends Referencia {
         this.formato = formato;
     }
 
-    
-    
-    
 }

@@ -9,7 +9,8 @@ package es.uvigo.esei.pro2.core;
  *
  * @author santi
  */
-public class DocumentoWeb extends Referencia{
+public class DocumentoWeb extends Referencia {
+
     private String url;
     private Fecha fechaConsulta;
 
@@ -38,7 +39,5 @@ public class DocumentoWeb extends Referencia{
     public void setFechaConsulta(Fecha fechaConsulta) {
         this.fechaConsulta = fechaConsulta;
     }
-    
-    
-    
+
 }

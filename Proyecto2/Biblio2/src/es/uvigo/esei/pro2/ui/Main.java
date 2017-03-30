@@ -8,7 +8,6 @@ package es.uvigo.esei.pro2.ui;
  *
  * @author nrufino
  */
-
 public class Main {
 
     public static void main(String[] args) {

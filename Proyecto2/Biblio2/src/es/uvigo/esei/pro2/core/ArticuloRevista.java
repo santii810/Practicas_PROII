@@ -9,7 +9,8 @@ package es.uvigo.esei.pro2.core;
  *
  * @author santi
  */
-public class ArticuloRevista extends Referencia{
+public class ArticuloRevista extends Referencia {
+
     private String tipoRevista;
     private String doi;
     private int volumen;
@@ -78,6 +79,5 @@ public class ArticuloRevista extends Referencia{
     public void setPaginaFin(int paginaFin) {
         this.paginaFin = paginaFin;
     }
-    
-    
+
 }
