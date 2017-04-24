@@ -15,7 +15,13 @@ public class P7_Ej7 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        ListaTemperaturas lt = new ListaTemperaturas();
+
+        lt.inserta("Orense", 25.0);
+        lt.inserta("Vigo", 20.0);
+
+        System.out.println(lt);
     }
-    
 }
+
+

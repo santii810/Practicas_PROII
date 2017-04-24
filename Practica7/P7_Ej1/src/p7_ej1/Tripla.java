@@ -72,11 +72,3 @@ public final class Tripla<T, S, U> {
     }
 }
 
-public class Ppal {
-
-    public static void main(String[] args) {
-        Tripla<Integer, Integer, Integer> t1 = new Tripla<>(1, 2, 3);
-
-        System.out.println(t1);
-    }
-}

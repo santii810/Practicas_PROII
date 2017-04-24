@@ -3,46 +3,41 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package p7_ej6;
+package p7_ej7;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  *
  * @author santi
  */
-public class Diccionario<K, V> {
+class ListaTemperaturas {
 
-    private K k;
-    private V v;
-    private HashMap map;
+    HashMap<String, Double> mapa;
 
-    public Diccionario(K k, V v) {
-        this.k = k;
-        this.v = v;
-        map = new HashMap();
+    public ListaTemperaturas() {
+        mapa = new HashMap<>();
+
     }
 
-    public V get(K k) {
-        return (V) map.get(k);
+    public void inserta(String c, double t) {
+        mapa.put(c, t);
     }
 
-    public void put(K k, V v) {
-        map.put(k, v);
+    public double get(String c) {
+        return mapa.get(c);
     }
 
-    public void clear(K k) {
-        map.remove(k);
-    }
-
-    public boolean isEmpty() {
-        return map.isEmpty();
+    public List<String> getCiudades() {
+        return  new ArrayList(mapa.keySet());
     }
 
     @Override
     public String toString() {
         StringBuilder toret = new StringBuilder();
-        for (Object object : map.keySet()) {
+        for (Object object : mapa.keySet()) {
             toret.append(object.toString());
             toret.append("\t");
             toret.append(object.toString());
@@ -51,5 +46,4 @@ public class Diccionario<K, V> {
         toret.append("\n");
         return toret.toString();
     }
-
 }

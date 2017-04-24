@@ -15,7 +15,9 @@ public class P7_Ej1 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+       Tripla<Integer, Integer, Integer> t1 = new Tripla<>(1, 2, 3);
+
+        System.out.println(t1);
     }
     
 }

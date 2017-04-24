@@ -15,7 +15,21 @@ public class P7_EJ6 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+
+        Diccionario<String, String> d = new Diccionario("Alto", "High");
+
+        d.put("hola", "hello");
+        d.put("adios", "good bye");
+        d.put("Derecha", "right");
+        d.put("Izquierda", "left");
+
+        System.out.println(d.toString());
+
+        System.out.println(d.isEmpty());
+
+        d.clear("hola");
+        System.out.println(d.toString());
+
     }
-    
+
 }
