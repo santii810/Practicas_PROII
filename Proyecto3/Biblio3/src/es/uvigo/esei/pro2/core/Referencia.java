@@ -94,9 +94,9 @@ abstract public class Referencia {
         return toret.toString();
     }
 
-    public void toDOM() {
+    public void toDOM(Element ref) {
         Element raiz = new Element("raiz");
-        Element ref = new Element("referencia");
+      
 
         Element autores = new Element(this.autores);
         Element titulo = new Element(this.titulo);
