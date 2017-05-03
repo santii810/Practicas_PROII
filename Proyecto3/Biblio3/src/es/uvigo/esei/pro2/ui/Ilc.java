@@ -109,6 +109,9 @@ public class Ilc {
         int toret;
 
         do {
+            System.out.println("Número de referencias bibliográficas: "
+                                + coleccion.getNumReferencias() 
+                                + " / " + coleccion.getMaxReferencias());
             System.out.println(
                               "\n1. Inserta nueva referencia\n"
                             + "2. Modifica referencia\n"
@@ -153,8 +156,11 @@ public class Ilc {
      */
     private void eliminaReferencia(Bibliografia coleccion) throws Bibliografia.PosicionInexistenteBibliografiaException
     {
+        if ( coleccion.getNumReferencias() > 0 ) {
             coleccion.elimina( leeNumReferencia( coleccion ) );
-               
+        } else {
+            System.out.println( "La coleccion no contiene referencias." );
+        }            
     }
 
     /**
