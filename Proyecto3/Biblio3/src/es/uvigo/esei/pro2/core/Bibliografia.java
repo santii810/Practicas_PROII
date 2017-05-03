@@ -85,15 +85,18 @@ public class Bibliografia {
      *
      * @param r el nuevo objeto Referencia
      */
-    public void inserta(Referencia r) throws DemasiadasReferenciasBibliografiaException {
-        final int maxReferencias = getMaxReferencias();
-
-        if (getNumReferencias() >= maxReferencias) {
-            throw new DemasiadasReferenciasBibliografiaException("inserta(): sobrepasa max.: " + getMaxReferencias());
-        }
-
-        referencias[this.maxReferencias] = r;
-        ++this.maxReferencias;
+//    public void inserta(Referencia r) throws DemasiadasReferenciasBibliografiaException {
+//        final int maxReferencias = getMaxReferencias();
+//
+//        if (getNumReferencias() >= maxReferencias) {
+//            throw new DemasiadasReferenciasBibliografiaException("inserta(): sobrepasa max.: " + getMaxReferencias());
+//        }
+//
+//        referencias[this.maxReferencias] = r;
+//        ++this.maxReferencias;
+//    }
+    public void inserta(Referencia r) {
+        referencias.add(r);
     }
 
     /**
@@ -106,7 +109,7 @@ public class Bibliografia {
             throw new PosicionInexistenteBibliografiaException("elimina(): sobrepasa el número de referencias : "
                     + getNumReferencias());
         }
-        referencias[pos] = referencias[--maxReferencias];
+        referencias.remove(pos);
     }
 
     /**
