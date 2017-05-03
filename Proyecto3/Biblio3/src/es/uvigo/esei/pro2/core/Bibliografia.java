@@ -125,7 +125,7 @@ public class Bibliografia {
         if (numReferencias > 0) {
             for (int i = 0; i < numReferencias; i++) {
                 toret.append((i + 1) + ". ");
-                toret.append(referencias[i].toString() + "\n");
+                toret.append(referencias.get(i) + "\n");
             }
         } else {
             toret.append("No hay referencias.");
