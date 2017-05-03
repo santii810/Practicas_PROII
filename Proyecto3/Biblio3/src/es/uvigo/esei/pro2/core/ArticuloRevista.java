@@ -3,14 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package es.uvigo.esei.pro2.core;
+
+import nu.xom.Element;
 
 /**
  *
  * @author Nani
  */
 public class ArticuloRevista extends Referencia {
+
     private String tituloRevista;
     private String doi;
     private int volumen;
@@ -18,9 +20,9 @@ public class ArticuloRevista extends Referencia {
     private int paginaInicio;
     private int paginaFin;
 
-    public ArticuloRevista( String tituloRevista, String doi, int volumen, 
-                            int numero, int paginaInicio, int paginaFin, 
-                            String autores, String titulo, int ano) {
+    public ArticuloRevista(String tituloRevista, String doi, int volumen,
+            int numero, int paginaInicio, int paginaFin,
+            String autores, String titulo, int ano) {
         super(autores, titulo, ano);
         this.tituloRevista = tituloRevista;
         this.doi = doi;
@@ -81,7 +83,7 @@ public class ArticuloRevista extends Referencia {
     @Override
     public String toString() {
         StringBuilder toret = new StringBuilder();
-        
+
         toret.append("Referencia Articulo Revista.\n");
         toret.append(super.toString());
         toret.append("\tTitulo revista: ");
@@ -94,10 +96,22 @@ public class ArticuloRevista extends Referencia {
         toret.append(getPaginaInicio() + " - " + getPaginaFin());
         toret.append("\tDOI: ");
         toret.append(getDoi());
-        
+
         return toret.toString();
     }
-    
-    
-    
+
+    public void toDOM() {
+        Element ref = new Element("referencia");
+
+        ref.appendChild(new Element(this.tituloRevista));
+        ref.appendChild(new Element(this.doi));
+        ref.appendChild(new Element(Integer.toString(volumen)));
+        ref.appendChild(new Element(Integer.toString(numero)));
+        ref.appendChild(new Element(Integer.toString(paginaInicio)));
+        ref.appendChild(new Element(Integer.toString(paginaFin)));
+
+        this.toDOM(ref);
+
+    }
+
 }
