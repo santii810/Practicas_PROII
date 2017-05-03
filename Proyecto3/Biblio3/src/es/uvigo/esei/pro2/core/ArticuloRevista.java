@@ -103,12 +103,26 @@ public class ArticuloRevista extends Referencia {
     public void toDOM() {
         Element ref = new Element("referencia");
 
-        ref.appendChild(new Element(this.tituloRevista));
-        ref.appendChild(new Element(this.doi));
-        ref.appendChild(new Element(Integer.toString(volumen)));
-        ref.appendChild(new Element(Integer.toString(numero)));
-        ref.appendChild(new Element(Integer.toString(paginaInicio)));
-        ref.appendChild(new Element(Integer.toString(paginaFin)));
+        Element tituloRevistaNode = new Element(this.tituloRevista);
+        Element doiNode = new Element(this.doi);
+        Element volumenNode = new Element(Integer.toString(volumen));
+        Element numeroNode = new Element(Integer.toString(numero));
+        Element paginaInicioNode = new Element(Integer.toString(paginaInicio));
+        Element paginaFinNode = new Element(Integer.toString(paginaFin));
+
+        tituloRevistaNode.appendChild(new Element(this.tituloRevista));
+        doiNode.appendChild(new Element(this.doi));
+        volumenNode.appendChild(new Element(Integer.toString(volumen)));
+        numeroNode.appendChild(new Element(Integer.toString(numero)));
+        paginaInicioNode.appendChild(new Element(Integer.toString(paginaInicio)));
+        paginaFinNode.appendChild(new Element(Integer.toString(paginaFin)));
+
+        ref.appendChild(tituloRevistaNode);
+        ref.appendChild(doiNode);
+        ref.appendChild(volumenNode);
+        ref.appendChild(numeroNode);
+        ref.appendChild(paginaInicioNode);
+        ref.appendChild(paginaFinNode);
 
         this.toDOM(ref);
 

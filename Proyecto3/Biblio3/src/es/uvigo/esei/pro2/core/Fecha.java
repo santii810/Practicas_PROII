@@ -3,14 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package es.uvigo.esei.pro2.core;
+
+import nu.xom.Element;
+import nu.xom.Node;
 
 /**
  *
  * @author Nani
  */
 public class Fecha {
+
     private int dia;
     private int mes;
     private int anho;
@@ -44,19 +47,35 @@ public class Fecha {
     public void setAnho(int anho) {
         this.anho = anho;
     }
-    
+
     @Override
     public String toString() {
         StringBuilder toret = new StringBuilder();
-        
-        toret.append (getDia());
-        toret.append ("/");
-        toret.append (getMes());
-        toret.append ("/");
-        toret.append (getAnho());
-        
+
+        toret.append(getDia());
+        toret.append("/");
+        toret.append(getMes());
+        toret.append("/");
+        toret.append(getAnho());
+
         return toret.toString();
     }
-    
-    
+
+    public Element getDOM() {
+        Element fecha = new Element("fecha");
+        Element dia = new Element("dia");
+        Element mes = new Element("mes");
+        Element ano = new Element("ano");
+        
+        dia.appendChild(dia);
+        mes.appendChild(mes);
+        ano.appendChild(ano);
+        
+        fecha.appendChild(dia);
+        fecha.appendChild(mes);
+        fecha.appendChild(ano);
+        
+        return fecha;
+    }
+
 }

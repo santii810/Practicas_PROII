@@ -74,14 +74,17 @@ public class Libro extends Referencia {
     public void toDOM() {
         Element ref = new Element("referencia");
 
-        Element editorial = new Element(this.editorial);
-        Element isbn = new Element(this.isbn);
-        Element formato = new Element(formato.name());
+        Element editorialNode = new Element("editorial");
+        editorialNode.appendChild(this.editorial);
+        Element isbnNode = new Element("isbn");
+        isbnNode.appendChild(this.isbn);
+        Element formatoNode = new Element("formato");
+        formatoNode.appendChild(this.formato.name());
 
         // Crear el documento
-        ref.appendChild(editorial);
-        ref.appendChild(isbn);
-        ref.appendChild(formato);
+        ref.appendChild(editorialNode);
+        ref.appendChild(isbnNode);
+        ref.appendChild(formatoNode);
 
         this.toDOM(ref);
 
