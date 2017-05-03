@@ -95,21 +95,29 @@ abstract public class Referencia {
     }
 
     public void toDOM() {
-        Element raiz = new Element("mensajes");
-        Element mensaje = new Element("mensaje");
+        Element raiz = new Element("raiz");
+        Element ref = new Element("referencia");
+
+        Element autores = new Element(this.autores);
+        Element titulo = new Element(this.titulo);
+        Element ano = new Element(Integer.toString(this.ano));
 
         // Crear el documento
-        mensaje.appendChild("Hola, mundo");
-        raiz.appendChild(mensaje);
-        Document doc = new Document(raiz);
+        ref.appendChild(autores);
+        ref.appendChild(titulo);
+        ref.appendChild(ano);
 
+
+        //añadir a raiz
+        raiz.appendChild(ref);
         // Guardarlo
+        Document doc = new Document(raiz);
         try {
-            FileOutputStream f = new FileOutputStream("mensaje.xml");
+            FileOutputStream f = new FileOutputStream("referencias.xml");
             Serializer serial = new Serializer(f);
             serial.write(doc);
             f.close();
-            System.out.println("Ok");
+            System.out.println("Referencia guardada");
         } catch (IOException exc) {
             System.err.println("ERROR de archivo: " + exc.getMessage());
         }
