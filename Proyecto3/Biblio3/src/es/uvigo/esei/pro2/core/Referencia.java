@@ -16,6 +16,13 @@ abstract public class Referencia {
     private int ano;
 
     /**
+     * XML tags
+     */
+    private static final String ANO_TAG = "ano";
+    private static final String TITULO_TAG = "titulo";
+    private static final String AUTORES_TAG = "autores";
+
+    /**
      * Crea una nueva referencia, con sus autores, título y año
      *
      * @param autores los nombres de los autores de la referencia
@@ -95,18 +102,21 @@ abstract public class Referencia {
     }
 
     public void toDOM(Element ref) {
-        Element raiz = new Element("raiz");
-      
 
-        Element autores = new Element(this.autores);
-        Element titulo = new Element(this.titulo);
-        Element ano = new Element(Integer.toString(this.ano));
+        Element raiz = new Element("raiz");
+
+        Element autoresNode = new Element(AUTORES_TAG);
+        Element tituloNode = new Element(TITULO_TAG);
+        Element anoNode = new Element(ANO_TAG);
+
+        autoresNode.appendChild(this.autores);
+        tituloNode.appendChild(this.titulo);
+        anoNode.appendChild(Integer.toString(this.ano));
 
         // Crear el documento
-        ref.appendChild(autores);
-        ref.appendChild(titulo);
-        ref.appendChild(ano);
-
+        ref.appendChild(autoresNode);
+        ref.appendChild(tituloNode);
+        ref.appendChild(anoNode);
 
         //añadir a raiz
         raiz.appendChild(ref);
@@ -122,4 +132,5 @@ abstract public class Referencia {
             System.err.println("ERROR de archivo: " + exc.getMessage());
         }
     }
+
 }

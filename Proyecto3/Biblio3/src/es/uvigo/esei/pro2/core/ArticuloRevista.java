@@ -20,6 +20,14 @@ public class ArticuloRevista extends Referencia {
     private int paginaInicio;
     private int paginaFin;
 
+    private static final String PAGINA_FIN_TAG = "paginaFin";
+    private static final String PAGINA_INICIO_TAG = "paginaInicio";
+    private static final String NUMERO_TAG = "numero";
+    private static final String VOLUMEN_TAG = "volumen";
+    private static final String DOI_TAG = "doi";
+    private static final String TITULO_REVISTA_TAG = "tituloRevista";
+    private static final String REFERENCIA_TAG = "referencia";
+
     public ArticuloRevista(String tituloRevista, String doi, int volumen,
             int numero, int paginaInicio, int paginaFin,
             String autores, String titulo, int ano) {
@@ -101,14 +109,14 @@ public class ArticuloRevista extends Referencia {
     }
 
     public void toDOM() {
-        Element ref = new Element("referencia");
+        Element ref = new Element(REFERENCIA_TAG);
 
-        Element tituloRevistaNode = new Element(this.tituloRevista);
-        Element doiNode = new Element(this.doi);
-        Element volumenNode = new Element(Integer.toString(volumen));
-        Element numeroNode = new Element(Integer.toString(numero));
-        Element paginaInicioNode = new Element(Integer.toString(paginaInicio));
-        Element paginaFinNode = new Element(Integer.toString(paginaFin));
+        Element tituloRevistaNode = new Element(TITULO_REVISTA_TAG);
+        Element doiNode = new Element(DOI_TAG);
+        Element volumenNode = new Element(VOLUMEN_TAG);
+        Element numeroNode = new Element(NUMERO_TAG);
+        Element paginaInicioNode = new Element(PAGINA_INICIO_TAG);
+        Element paginaFinNode = new Element(PAGINA_FIN_TAG);
 
         tituloRevistaNode.appendChild(new Element(this.tituloRevista));
         doiNode.appendChild(new Element(this.doi));

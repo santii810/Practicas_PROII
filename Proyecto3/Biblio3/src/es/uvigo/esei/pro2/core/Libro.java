@@ -24,6 +24,15 @@ public class Libro extends Referencia {
     private String isbn;
     private tipoFormato formato;
 
+    /**
+     * XML tags
+     */
+    private static final String ISBN_TAG = "isbn";
+    private static final String FORMATO_TAG = "formato";
+    private static final String EDITORIAL_TAG = "editorial";
+        private static final String REFERENCIA_TAG = "referencia";
+
+
     public Libro(String editorial, String isbn, tipoFormato formato, String autores, String titulo, int ano) {
         super(autores, titulo, ano);
         this.editorial = editorial;
@@ -72,13 +81,13 @@ public class Libro extends Referencia {
     }
 
     public void toDOM() {
-        Element ref = new Element("referencia");
+        Element ref = new Element(REFERENCIA_TAG);
 
-        Element editorialNode = new Element("editorial");
+        Element editorialNode = new Element(EDITORIAL_TAG);
         editorialNode.appendChild(this.editorial);
-        Element isbnNode = new Element("isbn");
+        Element isbnNode = new Element(ISBN_TAG);
         isbnNode.appendChild(this.isbn);
-        Element formatoNode = new Element("formato");
+        Element formatoNode = new Element(FORMATO_TAG);
         formatoNode.appendChild(this.formato.name());
 
         // Crear el documento

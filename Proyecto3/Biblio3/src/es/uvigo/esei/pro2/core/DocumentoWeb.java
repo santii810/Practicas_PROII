@@ -16,6 +16,10 @@ public class DocumentoWeb extends Referencia {
     private String url;
     private Fecha fechaConsulta;
 
+    
+    private static final String URL_TAG = "url";
+    private static final String REFERENCIA_TAG = "referencia";
+
     public DocumentoWeb(String url, Fecha fechaConsulta,
             String autores, String titulo, int ano) {
         super(autores, titulo, ano);
@@ -54,9 +58,9 @@ public class DocumentoWeb extends Referencia {
     }
 
     public void toDOM() {
-        Element ref = new Element("referencia");
+        Element ref = new Element(REFERENCIA_TAG);
 
-        Element urlNode = new Element("url");
+        Element urlNode = new Element(URL_TAG);
         urlNode.appendChild(this.url);
    
         ref.appendChild(urlNode);
@@ -64,5 +68,5 @@ public class DocumentoWeb extends Referencia {
         this.toDOM(ref);
 
     }
-
+    
 }
