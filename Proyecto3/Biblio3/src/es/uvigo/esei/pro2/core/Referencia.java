@@ -10,7 +10,7 @@ import nu.xom.*;
  * @author nrufino
  */
 abstract public class Referencia {
-
+    
     private String autores;
     private String titulo;
     private int ano;
@@ -33,6 +33,12 @@ abstract public class Referencia {
         this.setAutores(autores);
         this.setTitulo(titulo);
         this.setAno(ano);
+    }
+    
+    public Referencia(Element e) {
+        this.setAutores(e.getAttributeValue(AUTORES_TAG));
+        this.setTitulo(e.getAttributeValue(TITULO_TAG));
+        this.setAno(Integer.parseInt(e.getAttributeValue(ANO_TAG)));
     }
 
     /**
@@ -90,25 +96,24 @@ abstract public class Referencia {
     public void setAno(int ano) {
         this.ano = ano;
     }
-
+    
     public String toString() {
         StringBuilder toret = new StringBuilder();
-
+        
         toret.append(getAutores() + " ; ");
         toret.append(getTitulo() + " ; ");
         toret.append(getAno() + " ; ");
-
+        
         return toret.toString();
     }
-
-    public void toDOM(Element ref) {
-
-        Element raiz = new Element("raiz");
-
+    
+    public Element toDOM() {
+        Element ref = new Element("referencia");
+        
         Element autoresNode = new Element(AUTORES_TAG);
         Element tituloNode = new Element(TITULO_TAG);
         Element anoNode = new Element(ANO_TAG);
-
+        
         autoresNode.appendChild(this.autores);
         tituloNode.appendChild(this.titulo);
         anoNode.appendChild(Integer.toString(this.ano));
@@ -117,20 +122,8 @@ abstract public class Referencia {
         ref.appendChild(autoresNode);
         ref.appendChild(tituloNode);
         ref.appendChild(anoNode);
-
-        //añadir a raiz
-        raiz.appendChild(ref);
-        // Guardarlo
-        Document doc = new Document(raiz);
-        try {
-            FileOutputStream f = new FileOutputStream("referencias.xml");
-            Serializer serial = new Serializer(f);
-            serial.write(doc);
-            f.close();
-            System.out.println("Referencia guardada");
-        } catch (IOException exc) {
-            System.err.println("ERROR de archivo: " + exc.getMessage());
-        }
+        
+        return ref;
     }
-
+    
 }

@@ -9,6 +9,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import nu.xom.Document;
 import nu.xom.Element;
+import nu.xom.ParsingException;
 import nu.xom.Serializer;
 
 /**
@@ -16,6 +17,14 @@ import nu.xom.Serializer;
  * @author Nani
  */
 public class Libro extends Referencia {
+
+    public Libro(Element elemento) throws ParsingException{
+        super(elemento);
+        
+        this.editorial = elemento.getAttributeValue(EDITORIAL_TAG);
+        this.isbn = elemento.getAttributeValue(ISBN_TAG);
+
+    }
 
     public static enum tipoFormato {
         ELECTRONICO, PAPEL
@@ -30,8 +39,7 @@ public class Libro extends Referencia {
     private static final String ISBN_TAG = "isbn";
     private static final String FORMATO_TAG = "formato";
     private static final String EDITORIAL_TAG = "editorial";
-        private static final String REFERENCIA_TAG = "referencia";
-
+    private static final String LIBRO_TAG = "libro";
 
     public Libro(String editorial, String isbn, tipoFormato formato, String autores, String titulo, int ano) {
         super(autores, titulo, ano);
@@ -80,8 +88,8 @@ public class Libro extends Referencia {
         return toret.toString();
     }
 
-    public void toDOM() {
-        Element ref = new Element(REFERENCIA_TAG);
+    public Element toDOM() {
+        Element ref = new Element(LIBRO_TAG);
 
         Element editorialNode = new Element(EDITORIAL_TAG);
         editorialNode.appendChild(this.editorial);
@@ -95,7 +103,7 @@ public class Libro extends Referencia {
         ref.appendChild(isbnNode);
         ref.appendChild(formatoNode);
 
-        this.toDOM(ref);
+        return ref;
 
     }
 

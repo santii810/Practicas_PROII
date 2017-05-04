@@ -66,15 +66,15 @@ public class Fecha {
         Element dia = new Element("dia");
         Element mes = new Element("mes");
         Element ano = new Element("ano");
-        
+
         dia.appendChild(dia);
         mes.appendChild(mes);
         ano.appendChild(ano);
-        
+
         fecha.appendChild(dia);
         fecha.appendChild(mes);
         fecha.appendChild(ano);
-        
+
         return fecha;
     }
 

@@ -3,7 +3,13 @@
  */
 package es.uvigo.esei.pro2.core;
 
+import es.uvigo.esei.pro2.exceptions.*;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
+import nu.xom.Document;
+import nu.xom.Element;
+import nu.xom.Serializer;
 
 /**
  *
@@ -11,28 +17,7 @@ import java.util.ArrayList;
  */
 public class Bibliografia {
 
-    public static class BibliografiaException extends Exception {
-
-        public BibliografiaException(String msg) {
-            super(msg);
-        }
-    }
-
-    public static class DemasiadasReferenciasBibliografiaException extends BibliografiaException {
-
-        public DemasiadasReferenciasBibliografiaException(String msg) {
-            super(msg);
-        }
-
-    }
-
-    public static class PosicionInexistenteBibliografiaException extends BibliografiaException {
-
-        public PosicionInexistenteBibliografiaException(String msg) {
-            super(msg);
-        }
-
-    }
+    private final static String RAIZ_TAG = "raiz";
 
     private ArrayList<Referencia> referencias;
     private int maxReferencias;
@@ -170,4 +155,20 @@ public class Bibliografia {
 
         return toret.toString();
     }
+
+    public void toXML(String nombreArchivo) throws IOException {
+        Element raiz = new Element(RAIZ_TAG);
+
+        for (Referencia referencia : referencias) {
+            raiz.appendChild(referencia.toDOM());
+        }
+
+        // Escribir en un archivo
+        FileOutputStream f = new FileOutputStream(nombreArchivo);
+        Document doc = new Document(raiz);
+        Serializer serial = new Serializer(f);
+        serial.write(doc);
+        f.close();
+    }
+
 }

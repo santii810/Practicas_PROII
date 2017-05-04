@@ -26,7 +26,7 @@ public class ArticuloRevista extends Referencia {
     private static final String VOLUMEN_TAG = "volumen";
     private static final String DOI_TAG = "doi";
     private static final String TITULO_REVISTA_TAG = "tituloRevista";
-    private static final String REFERENCIA_TAG = "referencia";
+    private static final String ARTICULO_REVISTA_TAG = "articuloRevista";
 
     public ArticuloRevista(String tituloRevista, String doi, int volumen,
             int numero, int paginaInicio, int paginaFin,
@@ -108,8 +108,8 @@ public class ArticuloRevista extends Referencia {
         return toret.toString();
     }
 
-    public void toDOM() {
-        Element ref = new Element(REFERENCIA_TAG);
+    public Element toDOM() {
+        Element ref = new Element(ARTICULO_REVISTA_TAG);
 
         Element tituloRevistaNode = new Element(TITULO_REVISTA_TAG);
         Element doiNode = new Element(DOI_TAG);
@@ -132,8 +132,7 @@ public class ArticuloRevista extends Referencia {
         ref.appendChild(paginaInicioNode);
         ref.appendChild(paginaFinNode);
 
-        this.toDOM(ref);
-
+        return ref;
     }
 
 }

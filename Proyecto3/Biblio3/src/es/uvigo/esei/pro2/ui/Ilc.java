@@ -7,13 +7,23 @@ import es.uvigo.esei.pro2.core.Libro;
 import es.uvigo.esei.pro2.core.ArticuloRevista;
 import es.uvigo.esei.pro2.core.DocumentoWeb;
 import es.uvigo.esei.pro2.core.Fecha;
+import es.uvigo.esei.pro2.exceptions.*;
+import java.io.File;
+import java.io.IOException;
 
 import java.util.Scanner;
+import nu.xom.Builder;
+import nu.xom.Document;
+import nu.xom.Element;
+import nu.xom.Elements;
+import nu.xom.ParsingException;
 
 /**
  * Interfaz de lin. de comando
  */
 public class Ilc {
+
+    private static final String NOMBRE_ARCHIVO = "referencias.xml";
 
     /**
      * Realiza el reparto de la funcionalidad ler = lee, evalua, repite
@@ -25,7 +35,8 @@ public class Ilc {
         int maxReferencias = leeNum("Num. max. referencias: ");
 
         // Prepara
-        Bibliografia coleccion = new Bibliografia(maxReferencias);
+//        Bibliografia coleccion = new Bibliografia(maxReferencias);
+        Bibliografia coleccion = leerXML(maxReferencias);
 
         // Bucle ppal
         do {
@@ -36,6 +47,8 @@ public class Ilc {
             try {
                 switch (op) {
                     case 0:
+                        //Guarda xml antes de salir
+                        coleccion.toXML(NOMBRE_ARCHIVO);
                         System.out.println("Fin.");
                         break;
                     case 1:
@@ -57,9 +70,9 @@ public class Ilc {
                         System.out.println("No es correcta esa opción ( "
                                 + op + " )");
                 }
-            } catch (Bibliografia.DemasiadasReferenciasBibliografiaException e) {
+            } catch (DemasiadasReferenciasBibliografiaException e) {
                 System.err.println("\nERROR: " + e.getMessage());
-            } catch (Bibliografia.PosicionInexistenteBibliografiaException e) {
+            } catch (PosicionInexistenteBibliografiaException e) {
                 System.err.println("\nERROR: " + e.getMessage());
             } catch (NumberFormatException exc) {
                 System.err.println("\nError. Formato numérico inválido.");
@@ -113,7 +126,6 @@ public class Ilc {
                     + "3. Elimina referencia\n"
                     + "4. Listar referencias\n"
                     + "5. Listar referencias por tipo\n"
-                    + "6. Guardar datos\n"
                     + "0. Salir\n"
             );
             toret = leeNum("Selecciona: ");
@@ -129,7 +141,7 @@ public class Ilc {
      *
      * @param coleccion La coleccion en la que se inserta la referencia.
      */
-    private void insertaReferencia(Bibliografia coleccion) throws Bibliografia.DemasiadasReferenciasBibliografiaException {
+    private void insertaReferencia(Bibliografia coleccion) throws DemasiadasReferenciasBibliografiaException {
         char tipoFor;
         Referencia r = new ArticuloRevista("", "", 0, 0, 0, 0, "", "", 0);
         Fecha fe = new Fecha(0, 0, 0);
@@ -155,7 +167,7 @@ public class Ilc {
      *
      * @param coleccion La coleccion en el que se elimina la referencia
      */
-    private void eliminaReferencia(Bibliografia coleccion) throws Bibliografia.PosicionInexistenteBibliografiaException {
+    private void eliminaReferencia(Bibliografia coleccion) throws PosicionInexistenteBibliografiaException {
         if (coleccion.getNumReferencias() > 0) {
             coleccion.elimina(leeNumReferencia(coleccion));
         } else {
@@ -168,7 +180,7 @@ public class Ilc {
      *
      * @param coleccion La coleccion de la cual modificar una referencia.
      */
-    private void modificaReferencia(Bibliografia coleccion) throws Bibliografia.PosicionInexistenteBibliografiaException {
+    private void modificaReferencia(Bibliografia coleccion) throws PosicionInexistenteBibliografiaException {
         if (coleccion.getNumReferencias() > 0) {
             this.modificaReferencia(coleccion.get(leeNumReferencia(coleccion)));
         } else {
@@ -478,5 +490,32 @@ public class Ilc {
         } while ((tipoRef != 'L') && (tipoRef != 'A') && (tipoRef != 'D'));
 
         return tipoRef;
+    }
+
+    private Bibliografia leerXML(int maxReferencias) throws ParsingException {
+        Bibliografia coleccion = new Bibliografia(maxReferencias);
+        Document doc = null;
+// Leer el archivo XML
+        try {
+            Builder parser = new Builder();
+            doc = parser.build(new File(NOMBRE_ARCHIVO));
+        } catch (ParsingException ex) {
+            System.err.println("ERROR en el formato XML: " + ex.getMessage());
+        } catch (IOException ex) {
+            System.err.println("ERROR de lectura del archivo" + ex.getMessage());
+        }
+// Leer los platos del DOM
+        Elements elements = doc.getRootElement().getChildElements();
+
+        for (int i = 0; i < elements.size(); i++) {
+            Element elemento = elements.get(i);
+            switch (elemento.getLocalName()) {
+                case "libro":
+                    coleccion.inserta(new Libro(elemento));
+                    break;
+                default:
+            }
+        }
+        return coleccion;
     }
 }
