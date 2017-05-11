@@ -18,14 +18,6 @@ import nu.xom.Serializer;
  */
 public class Libro extends Referencia {
 
-    public Libro(Element elemento) throws ParsingException{
-        super(elemento);
-        
-        this.editorial = elemento.getAttributeValue(EDITORIAL_TAG);
-        this.isbn = elemento.getAttributeValue(ISBN_TAG);
-
-    }
-
     public static enum tipoFormato {
         ELECTRONICO, PAPEL
     };
@@ -39,13 +31,54 @@ public class Libro extends Referencia {
     private static final String ISBN_TAG = "isbn";
     private static final String FORMATO_TAG = "formato";
     private static final String EDITORIAL_TAG = "editorial";
-    private static final String LIBRO_TAG = "libro";
+    public static final String LIBRO_TAG = "libro";
 
     public Libro(String editorial, String isbn, tipoFormato formato, String autores, String titulo, int ano) {
         super(autores, titulo, ano);
         this.editorial = editorial;
         this.isbn = isbn;
         this.formato = formato;
+    }
+
+    public Libro(String editorial, String isbn, String formato, String autores, String titulo, int ano) {
+        super(autores, titulo, ano);
+        this.editorial = editorial;
+        this.isbn = isbn;
+        this.formato = getEnumValue(titulo);
+    }
+
+    public Libro(Element e) throws ParsingException {
+        this(
+                e.getFirstChildElement(EDITORIAL_TAG).getValue(),
+                e.getFirstChildElement(ISBN_TAG).getValue(),
+                e.getFirstChildElement(FORMATO_TAG).getValue(),
+                e.getFirstChildElement(AUTORES_TAG).getValue(),
+                e.getFirstChildElement(TITULO_TAG).getValue(),
+                Integer.parseInt(e.getFirstChildElement(ANO_TAG).getValue())
+        );
+
+        if (e.getFirstChildElement(EDITORIAL_TAG) == null
+                || e.getFirstChildElement(ISBN_TAG) != null
+                || e.getFirstChildElement(FORMATO_TAG) == null
+                || e.getFirstChildElement(AUTORES_TAG) == null
+                || e.getFirstChildElement(TITULO_TAG) == null
+                || e.getFirstChildElement(ANO_TAG) == null) {
+            throw new ParsingException("XML incorrecto");
+
+        }
+    }
+
+    private tipoFormato getEnumValue(String value) {
+        tipoFormato toret = null;
+        switch (value.toLowerCase()) {
+            case "electronico":
+                toret = tipoFormato.ELECTRONICO;
+                break;
+            case "papel":
+                toret = tipoFormato.PAPEL;
+                break;
+        }
+        return toret;
     }
 
     public String getEditorial() {
@@ -89,7 +122,9 @@ public class Libro extends Referencia {
     }
 
     public Element toDOM() {
-        Element ref = new Element(LIBRO_TAG);
+        Element ref = super.toDOM();
+
+        ref.setLocalName(LIBRO_TAG);
 
         Element editorialNode = new Element(EDITORIAL_TAG);
         editorialNode.appendChild(this.editorial);

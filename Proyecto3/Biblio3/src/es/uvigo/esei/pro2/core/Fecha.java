@@ -61,21 +61,25 @@ public class Fecha {
         return toret.toString();
     }
 
-    public Element getDOM() {
-        Element fecha = new Element("fecha");
-        Element dia = new Element("dia");
-        Element mes = new Element("mes");
-        Element ano = new Element("ano");
+    public Element toDOM() {
+        Element fecha = new Element(FECHA_TAG);
+        Element diaNode = new Element(DIA_TAG);
+        Element mesNode = new Element(MES_TAG);
+        Element anoNode = new Element(ANO_TAG);
 
-        dia.appendChild(dia);
-        mes.appendChild(mes);
-        ano.appendChild(ano);
+        diaNode.appendChild(Integer.toString(dia));
+        mesNode.appendChild(Integer.toString(mes));
+        anoNode.appendChild(Integer.toString(anho));
 
-        fecha.appendChild(dia);
-        fecha.appendChild(mes);
-        fecha.appendChild(ano);
+        fecha.appendChild(diaNode);
+        fecha.appendChild(mesNode);
+        fecha.appendChild(anoNode);
 
         return fecha;
     }
+    private static final String ANO_TAG = "ano";
+    private static final String MES_TAG = "mes";
+    private static final String DIA_TAG = "dia";
+    private static final String FECHA_TAG = "fecha";
 
 }

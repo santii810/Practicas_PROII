@@ -1,21 +1,13 @@
 package es.uvigo.esei.pro2.ui;
 
 import es.uvigo.esei.pro2.core.Bibliografia;
-import es.uvigo.esei.pro2.core.Libro;
 import es.uvigo.esei.pro2.core.Referencia;
 import es.uvigo.esei.pro2.core.Libro;
 import es.uvigo.esei.pro2.core.ArticuloRevista;
 import es.uvigo.esei.pro2.core.DocumentoWeb;
 import es.uvigo.esei.pro2.core.Fecha;
 import es.uvigo.esei.pro2.exceptions.*;
-import java.io.File;
-import java.io.IOException;
-
 import java.util.Scanner;
-import nu.xom.Builder;
-import nu.xom.Document;
-import nu.xom.Element;
-import nu.xom.Elements;
 import nu.xom.ParsingException;
 
 /**
@@ -35,8 +27,14 @@ public class Ilc {
         int maxReferencias = leeNum("Num. max. referencias: ");
 
         // Prepara
-//        Bibliografia coleccion = new Bibliografia(maxReferencias);
-        Bibliografia coleccion = leerXML(maxReferencias);
+        Bibliografia coleccion;
+        coleccion = new Bibliografia(maxReferencias);
+
+        try {
+            coleccion = new Bibliografia(NOMBRE_ARCHIVO, maxReferencias);
+        } catch (ParsingException ex) {
+            System.err.println("Error leyendo bibliografia");
+        }
 
         // Bucle ppal
         do {
@@ -492,30 +490,4 @@ public class Ilc {
         return tipoRef;
     }
 
-    private Bibliografia leerXML(int maxReferencias) throws ParsingException {
-        Bibliografia coleccion = new Bibliografia(maxReferencias);
-        Document doc = null;
-// Leer el archivo XML
-        try {
-            Builder parser = new Builder();
-            doc = parser.build(new File(NOMBRE_ARCHIVO));
-        } catch (ParsingException ex) {
-            System.err.println("ERROR en el formato XML: " + ex.getMessage());
-        } catch (IOException ex) {
-            System.err.println("ERROR de lectura del archivo" + ex.getMessage());
-        }
-// Leer los platos del DOM
-        Elements elements = doc.getRootElement().getChildElements();
-
-        for (int i = 0; i < elements.size(); i++) {
-            Element elemento = elements.get(i);
-            switch (elemento.getLocalName()) {
-                case "libro":
-                    coleccion.inserta(new Libro(elemento));
-                    break;
-                default:
-            }
-        }
-        return coleccion;
-    }
 }

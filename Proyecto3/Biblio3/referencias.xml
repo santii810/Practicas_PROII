@@ -1,8 +1,2 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<raiz>
-    <libro>
-        <editorial>er</editorial>
-        <isbn>er</isbn>
-        <formato>PAPEL</formato>
-    </libro>
-</raiz>
+<raiz><libro><autores>1</autores><titulo>1</titulo><ano>1</ano><editorial>1</editorial><isbn>1</isbn><formato>PAPEL</formato></libro></raiz>

@@ -4,11 +4,15 @@
 package es.uvigo.esei.pro2.core;
 
 import es.uvigo.esei.pro2.exceptions.*;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import nu.xom.Builder;
 import nu.xom.Document;
 import nu.xom.Element;
+import nu.xom.Elements;
+import nu.xom.ParsingException;
 import nu.xom.Serializer;
 
 /**
@@ -30,6 +34,39 @@ public class Bibliografia {
     public Bibliografia(int maxReferencias) {
         this.maxReferencias = maxReferencias;
         referencias = new ArrayList<>();
+    }
+
+    public Bibliografia(String NOMBRE_ARCHIVO, int maxReferencias) throws ParsingException {
+        this(maxReferencias);
+        Document doc = null;
+// Leer el archivo XML
+        try {
+            Builder parser = new Builder();
+            doc = parser.build(new File(NOMBRE_ARCHIVO));
+        } catch (ParsingException ex) {
+            System.err.println("ERROR en el formato XML: " + ex.getMessage());
+        } catch (IOException ex) {
+            System.err.println("ERROR de lectura del archivo" + ex.getMessage());
+        }
+// Leer los platos del DOM
+        Elements elements = doc.getRootElement().getChildElements();
+
+        for (int i = 0; i < elements.size(); i++) {
+            Element elemento = elements.get(i);
+            switch (elemento.getLocalName()) {
+                case Libro.LIBRO_TAG:
+                    inserta(new Libro(elemento));
+                    break;
+                case DocumentoWeb.DOCUMENTO_WEB_TAG:
+                    //inserta(new DocumentoWeb(elemento));
+                    break;
+                case ArticuloRevista.ARTICULO_REVISTA_TAG:
+                    inserta(new ArticuloRevista(elemento));
+                    break;
+                default:
+                    throw new ParsingException("Etiqueta incorrecta");
+            }
+        }
     }
 
     /**

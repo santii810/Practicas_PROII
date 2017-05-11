@@ -18,9 +18,10 @@ abstract public class Referencia {
     /**
      * XML tags
      */
-    private static final String ANO_TAG = "ano";
-    private static final String TITULO_TAG = "titulo";
-    private static final String AUTORES_TAG = "autores";
+    public static final String ANO_TAG = "ano";
+    public static final String TITULO_TAG = "titulo";
+    public static final String AUTORES_TAG = "autores";
+    public static final String REFERENCIA_TAG = "referencia";
 
     /**
      * Crea una nueva referencia, con sus autores, título y año
@@ -108,7 +109,7 @@ abstract public class Referencia {
     }
     
     public Element toDOM() {
-        Element ref = new Element("referencia");
+        Element ref = new Element(REFERENCIA_TAG);
         
         Element autoresNode = new Element(AUTORES_TAG);
         Element tituloNode = new Element(TITULO_TAG);

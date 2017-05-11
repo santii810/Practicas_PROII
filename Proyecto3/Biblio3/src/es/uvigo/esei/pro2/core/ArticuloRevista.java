@@ -6,6 +6,7 @@
 package es.uvigo.esei.pro2.core;
 
 import nu.xom.Element;
+import nu.xom.ParsingException;
 
 /**
  *
@@ -26,7 +27,7 @@ public class ArticuloRevista extends Referencia {
     private static final String VOLUMEN_TAG = "volumen";
     private static final String DOI_TAG = "doi";
     private static final String TITULO_REVISTA_TAG = "tituloRevista";
-    private static final String ARTICULO_REVISTA_TAG = "articuloRevista";
+    public static final String ARTICULO_REVISTA_TAG = "articuloRevista";
 
     public ArticuloRevista(String tituloRevista, String doi, int volumen,
             int numero, int paginaInicio, int paginaFin,
@@ -38,6 +39,33 @@ public class ArticuloRevista extends Referencia {
         this.numero = numero;
         this.paginaInicio = paginaInicio;
         this.paginaFin = paginaFin;
+    }
+
+    public ArticuloRevista(Element e) throws ParsingException {
+        this(
+                e.getFirstChildElement(TITULO_REVISTA_TAG).getValue(),
+                e.getFirstChildElement(DOI_TAG).getValue(),
+                Integer.parseInt(e.getFirstChildElement(VOLUMEN_TAG).getValue()),
+                Integer.parseInt(e.getFirstChildElement(NUMERO_TAG).getValue()),
+                Integer.parseInt(e.getFirstChildElement(PAGINA_INICIO_TAG).getValue()),
+                Integer.parseInt(e.getFirstChildElement(PAGINA_FIN_TAG).getValue()),
+                e.getFirstChildElement(AUTORES_TAG).getValue(),
+                e.getFirstChildElement(TITULO_TAG).getValue(),
+                Integer.parseInt(e.getFirstChildElement(ANO_TAG).getValue())
+        );
+
+        if (e.getFirstChildElement(TITULO_REVISTA_TAG) == null
+                || e.getFirstChildElement(DOI_TAG) != null
+                || e.getFirstChildElement(VOLUMEN_TAG) == null
+                || e.getFirstChildElement(NUMERO_TAG) == null
+                || e.getFirstChildElement(PAGINA_INICIO_TAG) == null
+                || e.getFirstChildElement(PAGINA_FIN_TAG) == null
+                || e.getFirstChildElement(AUTORES_TAG) == null
+                || e.getFirstChildElement(TITULO_TAG) == null
+                || e.getFirstChildElement(ANO_TAG) == null) {
+            throw new ParsingException("XML incorrecto");
+
+        }
     }
 
     public String getTituloRevista() {
@@ -109,7 +137,9 @@ public class ArticuloRevista extends Referencia {
     }
 
     public Element toDOM() {
-        Element ref = new Element(ARTICULO_REVISTA_TAG);
+        Element ref = super.toDOM();
+
+        ref.setLocalName(ARTICULO_REVISTA_TAG);
 
         Element tituloRevistaNode = new Element(TITULO_REVISTA_TAG);
         Element doiNode = new Element(DOI_TAG);
@@ -118,12 +148,12 @@ public class ArticuloRevista extends Referencia {
         Element paginaInicioNode = new Element(PAGINA_INICIO_TAG);
         Element paginaFinNode = new Element(PAGINA_FIN_TAG);
 
-        tituloRevistaNode.appendChild(new Element(this.tituloRevista));
-        doiNode.appendChild(new Element(this.doi));
-        volumenNode.appendChild(new Element(Integer.toString(volumen)));
-        numeroNode.appendChild(new Element(Integer.toString(numero)));
-        paginaInicioNode.appendChild(new Element(Integer.toString(paginaInicio)));
-        paginaFinNode.appendChild(new Element(Integer.toString(paginaFin)));
+        tituloRevistaNode.appendChild(this.tituloRevista);
+        doiNode.appendChild(this.doi);
+        volumenNode.appendChild(Integer.toString(volumen));
+        numeroNode.appendChild(Integer.toString(numero));
+        paginaInicioNode.appendChild(Integer.toString(paginaInicio));
+        paginaFinNode.appendChild(Integer.toString(paginaFin));
 
         ref.appendChild(tituloRevistaNode);
         ref.appendChild(doiNode);
